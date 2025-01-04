@@ -1,0 +1,20 @@
+{
+  "name": "baraa/web-project",
+  "type": "project",
+  "license": "\\",
+  "autoload": {
+    "psr-4": {
+      "Baraa\\WebProject\\": "src/"
+    }
+  },
+  "scripts": {
+    "start": "php -S localhost:8000 -t public"
+  },
+  "authors": [
+    {
+      "name": "Baraa Abuhalima",
+      "email": "B.K.1Baraa@gmail.com"
+    }
+  ],
+  "require": {}
+}
