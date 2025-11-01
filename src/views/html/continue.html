@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Confirmation</title>
+  <link rel="stylesheet" href="../style/hotel-booking.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #2c3e50, #3498db);
+      margin: 0;
+      padding: 0;
+      color: white;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.3);
+      color: white;
+      border-bottom: 2px solid #fff;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin: 0;
+      letter-spacing: 2px;
+    }
+
+    header p {
+      font-size: 1.2em;
+      margin: 10px 0 0;
+    }
+
+    .booking-details {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      color: black;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+
+
+
+    .form-row {
+  display: flex;
+  align-items: center; 
+  justify-content: flex-start; 
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.form-row label {
+  font-size: 1.1em;
+  color: #555;
+  min-width: 150px; 
+  text-align: right; 
+}
+
+.form-row input,
+.form-row select {
+  flex: 1; 
+  height: 35px; 
+  padding: 5px 10px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+
+
+    .submit-button {
+      width: 100%;
+      padding: 15px;
+      background-color: #3498db;
+      border: none;
+      color: white;
+      font-size: 1.2em;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-button:hover {
+      background-color: #2980b9;
+    }
+
+    .form-row input[readonly] {
+      background-color: #f4f4f4;
+    }
+
+    .form-row input[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    .form-row input[type="number"]::-webkit-outer-spin-button,
+    .form-row input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .total-price-section {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+
+    .total-price-section span {
+      color: #3498db;
+    }
+
+    .paypal-fields,
+    .credit-card-fields {
+      display: none;
+      margin-top: 20px;
+      background: #f7f7f7;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .paypal-fields input,
+    .credit-card-fields input {
+      margin-bottom: 10px;
+    }
+
+    .confirmation-message {
+      display: none;
+      background: #28a745;
+      color: white;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .confirmation-message button {
+      background-color: #d39e00;
+      border: none;
+      padding: 10px;
+      color: white;
+      font-size: 1.1em;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Booking Confirmation</h1>
+    <p>Complete your booking details</p>
+  </header>
+
+  <div class="booking-details">
+    <form id="bookingForm">
+      <h3 id="hotelName"></h3>
+      <p>Price per night for each person: $<span id="hotelPrice"></span></p>
+
+      <div class="form-row">
+        <label for="guestName">Guest name:</label>
+        <input type="text" id="guestName" required placeholder="Enter your name">
+      </div>
+
+      <div class="form-row">
+        <label for="guestCount">Number of guests:</label>
+        <input type="number" id="guestCount" required placeholder="Enter number of guests" min="1">
+      </div>
+
+      <div class="form-row">
+        <label for="passportNumber">Passport Number:</label>
+        <input type="text" id="passportNumber" required placeholder="Enter your passport number">
+      </div>
+
+      <div class="form-row">
+        <label for="arrivalDate">Arrival Date:</label>
+        <input type="date" id="arrivalDate" required>
+      </div>
+
+      <div class="form-row">
+        <label for="departureDate">Departure Date:</label>
+        <input type="date" id="departureDate" required>
+      </div>
+
+      <div class="form-row">
+        <label for="bedCount">Number of Beds:</label>
+        <input type="number" id="bedCount" required placeholder="Enter number of beds" min="1">
+      </div>
+
+      <div class="form-row">
+        <label for="paymentMethod">Payment Method:</label>
+        <select id="paymentMethod" required>
+          <option value="creditCard">Credit Card</option>
+          <option value="paypal">PayPal</option>
+          <option value="cash">Cash (Pay at the hotel)</option>
+        </select>
+      </div>
+
+      <div id="paypalFields" class="paypal-fields">
+        <div class="form-row">
+          <label for="paypalEmail">PayPal Email:</label>
+          <input type="email" id="paypalEmail" placeholder="Enter your PayPal email">
+        </div>
+      </div>
+
+      <div id="creditCardFields" class="credit-card-fields">
+        <div class="form-row">
+          <label for="cardNumber">Card Number:</label>
+          <input type="text" id="cardNumber" placeholder="Enter your card number">
+        </div>
+        <div class="form-row">
+          <label for="cardExpiration">Expiration Date:</label>
+          <input type="month" id="cardExpiration" placeholder="MM/YY">
+        </div>
+        <div class="form-row">
+          <label for="cardCvc">CVC/CVV:</label>
+          <input type="text" id="cardCvc" placeholder="Enter your CVC">
+        </div>
+      </div>
+
+      <div class="form-row total-price-section">
+        <p>Total Price: <span id="totalPrice">$0</span></p>
+      </div>
+
+      <div class="form-row">
+        <button type="submit" class="submit-button">Confirm Booking</button>
+      </div>
+    </form>
+
+    <div id="confirmationMessage" class="confirmation-message">
+      <p>Your booking has been confirmed! Upon arrival at the hotel, you can complete your check-in and collect your room key from the reception.</p>
+      <button onclick="closeConfirmation()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const hotelName = urlParams.get("hotelName");
+    const pricePerNight = parseInt(urlParams.get("price"));
+
+    const hotelNameElement = document.getElementById("hotelName");
+    const hotelPriceElement = document.getElementById("hotelPrice");
+    const totalPriceElement = document.getElementById("totalPrice");
+    const guestCountElement = document.getElementById("guestCount");
+    const bedCountElement = document.getElementById("bedCount");
+    const paymentMethodElement = document.getElementById("paymentMethod");
+    const paypalFields = document.getElementById("paypalFields");
+    const creditCardFields = document.getElementById("creditCardFields");
+    const confirmationMessage = document.getElementById("confirmationMessage");
+
+    if (hotelName && !isNaN(pricePerNight)) {
+      hotelNameElement.textContent = hotelName;
+      hotelPriceElement.textContent = pricePerNight;
+    } else {
+      alert("Missing hotel details.");
+    }
+
+    function updateTotalPrice() {
+      const guestCount = guestCountElement.value;
+      const totalPrice = pricePerNight * guestCount;
+      totalPriceElement.textContent = `$${totalPrice}`;
+    }
+
+    guestCountElement.addEventListener("input", updateTotalPrice);
+    bedCountElement.addEventListener("input", updateTotalPrice);
+
+    paymentMethodElement.addEventListener("change", () => {
+      if (paymentMethodElement.value === "paypal") {
+        paypalFields.style.display = "block";
+        creditCardFields.style.display = "none";
+      } else if (paymentMethodElement.value === "creditCard") {
+        creditCardFields.style.display = "block";
+        paypalFields.style.display = "none";
+      } else {
+        paypalFields.style.display = "none";
+        creditCardFields.style.display = "none";
+      }
+    });
+
+    document.getElementById("bookingForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const guestName = document.getElementById("guestName").value.trim();
+      const guestCount = document.getElementById("guestCount").value;
+      const passportNumber = document.getElementById("passportNumber").value.trim();
+      const arrivalDate = document.getElementById("arrivalDate").value;
+      const departureDate = document.getElementById("departureDate").value;
+      const paymentMethod = document.getElementById("paymentMethod").value;
+
+      if (guestName && guestCount && passportNumber && arrivalDate && departureDate && paymentMethod) {
+        confirmationMessage.style.display = "block";
+      }
+    });
+
+    function closeConfirmation() {
+      confirmationMessage.style.display = "none";
+    }
+  </script>
+
+  
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-item">
+      <img src="../image/airplane-and-airport-tower.png" alt="Airplane Icon" class="footer-icon">
+      <p>Fleet of <strong>61 aircraft</strong></p>
+    </div>
+    <div class="footer-item">
+      <img src="../image/airplane-flight-in-circle-around-earth.png" alt="Flight Icon" class="footer-icon">
+      <p>1500 <strong>weekly flights</strong></p>
+    </div>
+    <div class="footer-item">
+      <img src="../image/pin.png" alt="Destination Icon" class="footer-icon">
+      <p>Over <strong>70 destinations</strong></p>
+    </div>
+    <div class="footer-item">
+      <img src="../image/persons-in-an-airport.png" alt="Traveler Icon" class="footer-icon">
+      <p>More than <strong>78 million travelers</strong></p>
+    </div>
+  </div>
+
+  <div class="footer-links">
+    <div class="footer-section">
+      <h3>Contact Us</h3>
+      <ul>
+        <li><a href="customer-support.html" class="footer-link" target="_blank">Customer Support</a></li>
+        <li><a href="service-guarantee.html" class="footer-link" target="_blank">Service Guarantee</a></li>
+        <li><a href="more-info.html" class="footer-link" target="_blank">More Service Info</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>About</h3>
+      <ul>
+        <li><a href="about.html" class="footer-link" target="_blank">About</a></li>
+        <li><a href="careers.html" class="footer-link" target="_blank">Careers</a></li>
+        <li><a href="privacy-policy.html" class="footer-link"target="_blank">Privacy Statement</a></li>
+        <li><a href="terms.html" class="footer-link" target="_blank">Terms & Conditions</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="social-links">
+    <a href="#" target="_blank"><img src="../image/facebook.png" alt="Facebook"></a>
+    <a href="#" target="_blank"><img src="../image/twitter.png" alt="Twitter"></a>
+    <a href="#" target="_blank"><img src="../image/instagram.png" alt="Instagram"></a>
+    <a href="#" target="_blank"><img src="../image/youtube.png" alt="YouTube"></a>
+  </div>
+</footer>
+
+
+</body>
+</html>

@@ -4,11 +4,8 @@
   "license": "\\",
   "autoload": {
     "psr-4": {
-      "Baraa\\WebProject\\": "src/"
+      "Src\\": "./src"
     }
-  },
-  "scripts": {
-    "start": "php -S localhost:8000 -t public"
   },
   "authors": [
     {
@@ -16,5 +13,14 @@
       "email": "B.K.1Baraa@gmail.com"
     }
   ],
-  "require": {}
+  "scripts": {
+    "start": "\"C:\\xampp\\php\\php.exe\" -S localhost:8000 -t ."
+  },
+  "config": {
+    "process-timeout": 999999
+  },
+  "require": {
+    "illuminate/database": "^11.37",
+    "vlucas/phpdotenv": "^5.6"
+  }
 }

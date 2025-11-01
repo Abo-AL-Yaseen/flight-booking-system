@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results</title>
+  <link rel="stylesheet" href="../style/hotel-booking.css">
+</head>
+<body>
+  <header class="header">
+    <h1>Search Results</h1>
+    <p>Your perfect stay awaits!</p>
+  </header>
+
+  <div id="results" class="results"></div>
+
+  <script>
+    const hotelsData = {
+      "New York - Central Park": [
+        {
+          name: "The Plaza Hotel",
+          price: 500,
+          image: "../image/the-Plaza.jpg",
+        },
+        {
+          name: "Hotel Central Park",
+          price: 300,
+          image: "../image/central-park-hotel.jpg",
+        },
+      ],
+      "Paris - Eiffel Tower": [
+        {
+          name: "Le Meurice",
+          price: 600,
+          image: "../image/Le_Meurice.jpg",
+        },
+        {
+          name: "Hotel Eiffel Seine",
+          price: 350,
+          image: "../image/paris-hotels.jpeg",
+        },
+      ],
+      "London - Big Ben": [
+        {
+          name: "The Ritz London",
+          price: 700,
+          image: "../image/the_ritz.webp",
+        },
+        {
+          name: "Premier Inn London",
+          price: 200,
+          image: "../image/pom.webp",
+        },
+      ],
+      "Tokyo - Shibuya": [
+        {
+          name: "Shibuya Excel Hotel",
+          price: 250,
+          image: "../image/shib.jpg",
+        },
+        {
+          name: "Cerulean Tower Tokyu Hotel",
+          price: 400,
+          image: "../image/cerul.jpg",
+        },
+      ],
+      "Dubai - Burj Khalifa": [
+        {
+          name: "Armani Hotel Dubai",
+          price: 1000,
+          image: "../image/dd.jpg",
+        },
+        {
+          name: "Address Downtown",
+          price: 800,
+          image: "../image/addresl.webp",
+        },
+      ],
+      "Maldives - Ocean Villa": [
+        {
+          name: "Soneva Fushi",
+          price: 1200,
+          image: "../image/oo.jpg",
+        },
+        {
+          name: "Anantara Dhigu Maldives",
+          price: 900,
+          image: "../image/ana.jpg",
+        },
+      ],
+      "Hawaii - Waikiki Beach": [
+        {
+          name: "Hilton Hawaiian Village",
+          price: 450,
+          image: "../image/hil.jpg",
+        },
+        {
+          name: "The Royal Hawaiian",
+          price: 600,
+          image: "../image/roo.webp",
+        },
+      ],
+      "Bali - Kuta Beach": [
+        {
+          name: "Hard Rock Hotel Bali",
+          price: 300,
+          image: "../image/sand.jpg",
+        },
+        {
+          name: "The Anvaya Beach Resort",
+          price: 400,
+          image: "../image/anava.jpg",
+        },
+      ],
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const destination = urlParams.get("destination");
+
+    const resultsDiv = document.getElementById("results");
+
+    if (hotelsData[destination]) {
+      hotelsData[destination].forEach((hotel) => {
+        const hotelCard = document.createElement("div");
+        hotelCard.classList.add("hotel-card");
+
+        hotelCard.innerHTML = `
+          <a href="continue.html?hotelName=${hotel.name}&price=${hotel.price}">
+            <img src="${hotel.image}" alt="${hotel.name}" />
+          </a>
+          <h3>${hotel.name}</h3>
+          <p>Price per night: $${hotel.price}</p>
+        `;
+
+        resultsDiv.appendChild(hotelCard);
+      });
+    } else {
+      resultsDiv.innerHTML = "<p>No hotels found for this destination.</p>";
+    }
+  </script>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-item">
+      <img src="../image/airplane-and-airport-tower.png" alt="Airplane Icon" class="footer-icon">
+      <p>Fleet of <strong>61 aircraft</strong></p>
+    </div>
+    <div class="footer-item">
+      <img src="../image/airplane-flight-in-circle-around-earth.png" alt="Flight Icon" class="footer-icon">
+      <p>1500 <strong>weekly flights</strong></p>
+    </div>
+    <div class="footer-item">
+      <img src="../image/pin.png" alt="Destination Icon" class="footer-icon">
+      <p>Over <strong>70 destinations</strong></p>
+    </div>
+    <div class="footer-item">
+      <img src="../image/persons-in-an-airport.png" alt="Traveler Icon" class="footer-icon">
+      <p>More than <strong>78 million travelers</strong></p>
+    </div>
+  </div>
+
+  <div class="footer-links">
+    <div class="footer-section">
+      <h3>Contact Us</h3>
+      <ul>
+        <li><a href="customer-support.html" class="footer-link" target="_blank">Customer Support</a></li>
+        <li><a href="service-guarantee.html" class="footer-link" target="_blank">Service Guarantee</a></li>
+        <li><a href="more-info.html" class="footer-link" target="_blank">More Service Info</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>About</h3>
+      <ul>
+        <li><a href="about.html" class="footer-link" target="_blank">About</a></li>
+        <li><a href="careers.html" class="footer-link" target="_blank">Careers</a></li>
+        <li><a href="privacy-policy.html" class="footer-link"target="_blank">Privacy Statement</a></li>
+        <li><a href="terms.html" class="footer-link" target="_blank">Terms & Conditions</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="social-links">
+    <a href="#" target="_blank"><img src="../image/facebook.png" alt="Facebook"></a>
+    <a href="#" target="_blank"><img src="../image/twitter.png" alt="Twitter"></a>
+    <a href="#" target="_blank"><img src="../image/instagram.png" alt="Instagram"></a>
+    <a href="#" target="_blank"><img src="../image/youtube.png" alt="YouTube"></a>
+  </div>
+</footer>
+
+</body>
+</html>

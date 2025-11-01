@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Booking</title>
+  <link rel="stylesheet" href="../style/hotel-booking.css">
+  <style>
+    .travel-reels {
+      margin: 20px auto;
+      text-align: center;
+      padding: 10px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 600px;
+    }
+
+    .reel-video {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .reel-caption {
+      margin-top: 10px;
+      font-size: 1.2em;
+      color: #333;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <h1>Find Your Perfect Stay</h1>
+    <p>Exclusive deals | 24/7 Customer Support</p>
+  </header>
+
+  <div class="search-box">
+    <nav>
+      <button class="tab" id="flightBtn">Flight</button>
+      <button class="tab active">Flight + Hotel</button>
+    </nav>
+
+    <form id="searchForm">
+      <div class="form-row">
+        <input type="text" list="hotel-locations" placeholder="Destination City or Hotel Name" id="destination" required>
+        <datalist id="hotel-locations">
+          <optgroup label="Popular Cities">
+            <option value="New York - Central Park">
+            <option value="Paris - Eiffel Tower">
+            <option value="London - Big Ben">
+            <option value="Tokyo - Shibuya">
+            <option value="Dubai - Burj Khalifa">
+          </optgroup>
+          <optgroup label="Beach Destinations">
+            <option value="Maldives - Ocean Villa">
+            <option value="Hawaii - Waikiki Beach">
+            <option value="Bali - Kuta Beach">
+          </optgroup>
+        </datalist>
+        <input type="date" id="check-in-date" required>
+        <input type="date" id="check-out-date" required>
+      </div>
+
+      <div class="form-row">
+        <label for="rooms-adults">Rooms & Guests:</label>
+        <input 
+          list="rooms-options" 
+          id="rooms-adults" 
+          placeholder="1 Room, 2 Adults" 
+          name="rooms-guests">
+        <datalist id="rooms-options">
+          <option value="1 Room, 2 Adults">
+          <option value="1 Room, 3 Adults">
+          <option value="2 Rooms, 4 Adults">
+          <option value="1 Room, 2 Adults, 1 Child">
+          <option value="Custom Option">
+        </datalist>
+      </div>
+
+      <div class="form-row">
+        <button type="submit" class="submit-button">Search and Confirm Booking</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="travel-reels">
+    <div class="video-block">
+      <video id="video1" class="reel-video" controls autoplay muted>
+        <source src="../image/reel.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <video id="video2" class="reel-video hidden" controls muted>
+        <source src="../image/reel2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <p class="reel-caption">Travel. Discover the world and cultures. Enjoy!</p>
+  </div>
+  
+
+
+  <script>
+    document.getElementById("flightBtn").addEventListener("click", () => {
+      window.location.href = "home.html";
+    });
+  
+    document.getElementById("searchForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const destination = document.getElementById("destination").value.trim();
+      if (destination) {
+        const params = new URLSearchParams({ destination });
+        window.location.href = `search.html?${params.toString()}`;
+      }
+    });
+  
+    const video1 = document.getElementById("video1");
+    const video2 = document.getElementById("video2");
+  
+    video1.addEventListener("ended", () => {
+      video1.classList.add("hidden");
+      video2.classList.remove("hidden");
+      video2.play();
+    });
+  
+    video2.addEventListener("ended", () => {
+      video2.classList.add("hidden");
+      video1.classList.remove("hidden");
+      video1.play();
+    });
+  </script>
+  
+
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-item">
+        <img src="../image/airplane-and-airport-tower.png" alt="Airplane Icon" class="footer-icon">
+        <p>Fleet of <strong>61 aircraft</strong></p>
+      </div>
+      <div class="footer-item">
+        <img src="../image/airplane-flight-in-circle-around-earth.png" alt="Flight Icon" class="footer-icon">
+        <p>1500 <strong>weekly flights</strong></p>
+      </div>
+      <div class="footer-item">
+        <img src="../image/pin.png" alt="Destination Icon" class="footer-icon">
+        <p>Over <strong>70 destinations</strong></p>
+      </div>
+      <div class="footer-item">
+        <img src="../image/persons-in-an-airport.png" alt="Traveler Icon" class="footer-icon">
+        <p>More than <strong>78 million travelers</strong></p>
+      </div>
+    </div>
+  
+    <div class="footer-links">
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <ul>
+          <li><a href="customer-support.html" class="footer-link" target="_blank">Customer Support</a></li>
+          <li><a href="service-guarantee.html" class="footer-link" target="_blank">Service Guarantee</a></li>
+          <li><a href="more-info.html" class="footer-link" target="_blank">More Service Info</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>About</h3>
+        <ul>
+          <li><a href="about.html" class="footer-link" target="_blank">About</a></li>
+          <li><a href="careers.html" class="footer-link" target="_blank">Careers</a></li>
+          <li><a href="privacy-policy.html" class="footer-link"target="_blank">Privacy Statement</a></li>
+          <li><a href="terms.html" class="footer-link" target="_blank">Terms & Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+  
+    <div class="social-links">
+      <a href="#" target="_blank"><img src="../image/facebook.png" alt="Facebook"></a>
+      <a href="#" target="_blank"><img src="../image/twitter.png" alt="Twitter"></a>
+      <a href="#" target="_blank"><img src="../image/instagram.png" alt="Instagram"></a>
+      <a href="#" target="_blank"><img src="../image/youtube.png" alt="YouTube"></a>
+    </div>
+  </footer>
+
+</body>
+</html>
